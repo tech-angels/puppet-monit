@@ -15,6 +15,7 @@ How to use the module
 Add the following to your node manifest::
 
   $monit_secret="something secret, something safe"
+  $monit_alert="someone@example.org"
   include monit
 
 This will add a host-only "/etc/monit/monitrc" configuration file, which in

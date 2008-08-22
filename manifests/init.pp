@@ -8,7 +8,7 @@ class monit {
 
 	# The monit_secret is used with the fqdn of the host to make a
 	# password for the monit http server.
-	$monit_secret="Change this to something local"
+	$monit_default_secret="This is not very secret, is it?"
 
 	# The default alert recipient.  You can override this by setting the
 	# variable "$monit_alert" in your node specification.

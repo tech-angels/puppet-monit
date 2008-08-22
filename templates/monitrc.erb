@@ -5,9 +5,16 @@
 
 <%# BEGIN functions %>
 <%
-def password(s,h)
-  require 'digest/sha1'
-  return Digest::SHA1.hexdigest(s + Digest::SHA1.hexdigest(s + h))
+require 'digest/sha1'
+
+def password
+  if defined?(monit_secret)
+    s = monit_secret
+  else
+    s = monit_default_secret
+  end
+
+  return Digest::SHA1.hexdigest(s + Digest::SHA1.hexdigest(s + fqdn))
 end
 
 def monit_set_alert
@@ -27,7 +34,7 @@ set mailserver localhost, mailhost.linpro.no
 set alert <%= monit_set_alert %>
 set httpd port 2812 and use address localhost
     allow localhost
-    allow monit:<%= password(monit_secret, fqdn) %>
+    allow monit:<%= password %>
 
 check system <%= fqdn %>
   if loadavg (1min) > 4 then alert
