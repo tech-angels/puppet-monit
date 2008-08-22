@@ -1,0 +1,41 @@
+# /etc/monit/monitrc - Monit Configuration file
+# 
+# This file is handled by puppet, any local changes will be lost
+#
+
+<%# BEGIN functions %>
+<%
+def password(s,h)
+  require 'digest/sha1'
+  return Digest::SHA1.hexdigest(s + Digest::SHA1.hexdigest(s + h))
+end
+
+def monit_set_alert
+  if defined?(monit_alert)
+    return monit_alert
+  else
+    return monit_default_alert
+  end
+end
+%>
+<%# END functions %>
+
+
+set daemon 120
+set logfile syslog facility log_daemon
+set mailserver localhost, mailhost.linpro.no
+set alert <%= monit_set_alert %>
+set httpd port 2812 and use address localhost
+    allow localhost
+    allow monit:<%= password(monit_secret, fqdn) %>
+
+check system <%= fqdn %>
+  if loadavg (1min) > 4 then alert
+  if loadavg (5min) > 2 then alert
+  if memory usage > 75% then alert
+  if cpu usage (user) > 70% then alert
+  if cpu usage (system) > 30% then alert
+  if cpu usage (wait) > 20% then alert
+
+# Include settings from other files
+include /etc/monit/conf.d/*.monitrc

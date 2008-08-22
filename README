@@ -1,0 +1,42 @@
+=========================
+ Puppet module for monit
+=========================
+
+This is a puppet module for monit.  It provides a simple way to install the
+package, run the service, and handle the configuration.  It also provides a
+separate directory for other packages to install monit snippets.
+
+Usage
+=====
+
+How to use the module
+---------------------
+
+Add the following to your node manifest::
+
+  $monit_secret="something secret, something safe"
+  include monit
+
+This will add a host-only "/etc/monit/monitrc" configuration file, which in
+turn will include any file ending with ".monitrc" in the "/etc/monit/conf.d/"
+directory.
+
+Making passwords
+----------------
+
+The $monit_secret variable is used to construct a password for your monit
+instance.
+
+If you do not set a monit secret, it will use a default "secret" to make
+passwords.
+
+How to provide monit configuration snippets?
+--------------------------------------------
+
+This monit module provides a way for other modules and classes to include
+configuration for monit to read.  Add the following to your manifest for the
+example customer "acme", with the Acme Daemon "acmed":
+
+ monit::config { "acmed":
+   source  => "puppet:///acme/acmed/acmed.monitrc",
+ }

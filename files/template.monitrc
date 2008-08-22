@@ -1,0 +1,6 @@
+# Template for *.monitrc-filer
+# 
+# check process templated
+#   with pidfile "/var/run/templated.pid"
+#   start program = "/etc/init.d/templated start"
+#   stop program  = "/etc/init.d/templated stop"
