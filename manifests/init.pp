@@ -62,6 +62,14 @@ class monit {
 	file { "/etc/monit/conf.d/template.monitrc":
 	}
 
+	# Monit is disabled by default on debian / ubuntu
+	case $operatingsystem {
+		"debian": {
+			file { "/etc/default/monit":
+				content => "startup=1",
+			}
+		}
+	}
 
 	# A definition used by other modules and classes to include monitrc
 	# snippets.
