@@ -30,7 +30,7 @@ end
 
 set daemon 120
 set logfile syslog facility log_daemon
-set mailserver localhost, mailhost.linpro.no
+set mailserver localhost
 set alert <%= monit_set_alert %>
 set httpd port 2812 and use address localhost
     allow localhost
