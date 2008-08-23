@@ -66,18 +66,29 @@ class monit {
 	case $operatingsystem {
 		"debian": {
 			file { "/etc/default/monit":
-				content => "startup=1",
+				content => "startup=1\n",
 			}
 		}
 	}
 
 	# A definition used by other modules and classes to include monitrc
 	# snippets.
-	define config($name,$source=undef,$content=undef) {
+	define config($ensure=present,$target="",$source="",$content="") {
 		file {"/etc/monit/conf.d/$name.monitrc":
-			source => $source,
-			content => $content,
-		}
+	                ensure => $ensure,
+	                content => $content ? {
+	                        ""      => undef,
+	                        default => $content
+	                },
+	                source => $source ? {
+	                        ""      => undef,
+	                        default => $source
+	                },
+	                target => $target ? {
+	                        ""      => undef,
+	                        default => $target
+	                },
+	        }
 	}
 
 	# A template configuration snippet.  It would need to be included,
