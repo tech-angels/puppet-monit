@@ -41,3 +41,6 @@ example customer "acme", with the Acme Daemon "acmed":
  monit::config { "acmed":
    source  => "puppet:///acme/acmed/acmed.monitrc",
  }
+
+The monit::config definition can take the parameters "ensure", and one of
+"content", "source" and "target", which is passed on to the "file" type inside.
