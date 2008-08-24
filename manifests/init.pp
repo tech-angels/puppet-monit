@@ -1,10 +1,11 @@
-# Monit class
+# Module: monit
+#
+# A puppet module to configure the monit service, and add definitions to be
+# used from other classes and modules.
 #
 # Stig Sandbeck Mathisen <ssm@fnord.no>
 #
-# See README for details
-
-# Module: monit
+#
 # Define: monit::check::process
 # Creates a monit process check,
 #
@@ -32,6 +33,7 @@
 #                     "if 2 restarts within 3 cycles then timeout"]
 #   }
 # (end)
+
 define monit::check::process($ensure=present, $process=$name,
                              $pidfile="/var/run/$name.pid",
                              $start="/etc/init.d/$name start",
@@ -47,7 +49,6 @@ define monit::check::process($ensure=present, $process=$name,
 	}
 }
 
-# Module: monit
 # Define: monit::snippet
 # Creates a monit configuration snippet in /etc/monit/conf.d/
 #
