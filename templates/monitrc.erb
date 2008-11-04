@@ -31,14 +31,15 @@ def password
 end
 <%# END functions %>
 %>
-set daemon 120
-set logfile syslog facility log_daemon
-set mailserver localhost
-set alert <%= monit_set_alert %>
 set httpd port 2812 and use address localhost
     allow localhost
     allow monit:<%= password %>
 <%- end -%>
+
+set daemon 120
+set logfile syslog facility log_daemon
+set mailserver localhost
+set alert <%= monit_set_alert %>
 
 # Include settings from other files
 include /etc/monit/conf.d/*.monitrc
