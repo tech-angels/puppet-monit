@@ -4,7 +4,22 @@
 # used from other classes and modules.
 #
 # Stig Sandbeck Mathisen <ssm@fnord.no>
+# micah@riseup.net
 #
+# To set any of the following, simply set them as variables in your manifests
+# before the class is included, for example:
+#
+# $monit_enable_httpd = yes
+# include monit
+#
+# The following is a list of the currently available variables:
+#
+# monit_enable_httpd:         should the httpd daemon be enabled?
+#                             set this to 'yes' to enable it, be sure
+#                             you have set the $monit_default_secret
+#                             Valid values: yes or no
+#                             Default: no
+
 class monit {
 
 
@@ -16,6 +31,10 @@ class monit {
 	# variable "$monit_alert" in your node specification.
 	$monit_default_alert="root@localhost"
 
+        # Should the httpd daemon be enabled, or not? By default it is not
+        case $monit_enable_httpd {
+          '': { $monit_enable_httpd = 'no' }
+        }
 	# The package
 	package { "monit":
 		ensure => installed,

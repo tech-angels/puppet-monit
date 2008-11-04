@@ -5,6 +5,19 @@
 
 <%# BEGIN functions %>
 <%
+def monit_set_alert
+  if defined?(monit_alert)
+    return monit_alert
+  else
+    return monit_default_alert
+  end
+end
+%>
+<%# END functions %>
+
+<%- if monit_enable_httpd.to_s == 'yes' then -%>
+<%# BEGIN functions %>
+<%
 require 'digest/sha1'
 
 def password
@@ -16,17 +29,7 @@ def password
 
   return Digest::SHA1.hexdigest(s + Digest::SHA1.hexdigest(s + fqdn))
 end
-
-def monit_set_alert
-  if defined?(monit_alert)
-    return monit_alert
-  else
-    return monit_default_alert
-  end
-end
-%>
 <%# END functions %>
-
 
 set daemon 120
 set logfile syslog facility log_daemon
@@ -35,6 +38,7 @@ set alert <%= monit_set_alert %>
 set httpd port 2812 and use address localhost
     allow localhost
     allow monit:<%= password %>
+<%- end -%>
 
 # Include settings from other files
 include /etc/monit/conf.d/*.monitrc
