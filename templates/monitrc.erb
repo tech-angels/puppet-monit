@@ -30,7 +30,7 @@ def password
   return Digest::SHA1.hexdigest(s + Digest::SHA1.hexdigest(s + fqdn))
 end
 <%# END functions %>
-
+%>
 set daemon 120
 set logfile syslog facility log_daemon
 set mailserver localhost
