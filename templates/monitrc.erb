@@ -29,8 +29,9 @@ def password
 
   return Digest::SHA1.hexdigest(s + Digest::SHA1.hexdigest(s + fqdn))
 end
-<%# END functions %>
 %>
+<%# END functions %>
+
 set httpd port 2812 and use address localhost
     allow localhost
     allow monit:<%= password %>
