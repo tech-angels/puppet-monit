@@ -4,21 +4,37 @@
 # used from other classes and modules.
 #
 # Stig Sandbeck Mathisen <ssm@fnord.no>
-# micah@riseup.net
+# Micah Anderson micah@riseup.net
 #
 # To set any of the following, simply set them as variables in your manifests
 # before the class is included, for example:
 #
 # $monit_enable_httpd = yes
+# $monit_httpd_port = 8888
+# $monit_secret="something secret, something safe"
+# $monit_alert="someone@example.org"
+# $monit_mailserver="mail.example.org"
+# 
 # include monit
 #
 # The following is a list of the currently available variables:
+#
+# monit_alert:                who should get the email notifications?
+#                             Default: root@localhost
 #
 # monit_enable_httpd:         should the httpd daemon be enabled?
 #                             set this to 'yes' to enable it, be sure
 #                             you have set the $monit_default_secret
 #                             Valid values: yes or no
 #                             Default: no
+#
+# monit_httpd_port:           what port should the httpd run on?
+#                             Default: 2812
+#
+#
+# monit_mailserver:           where should monit be sending mail?
+#                             set this to the mailserver
+#                             Default: localhost
 
 class monit {
 

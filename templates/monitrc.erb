@@ -3,17 +3,7 @@
 # This file is handled by puppet, any local changes will be lost
 #
 
-<%# BEGIN functions %>
-<%
-def monit_set_alert
-  if defined?(monit_alert)
-    return monit_alert
-  else
-    return monit_default_alert
-  end
-end
-%>
-<%# END functions %>
+set alert <%= has_variable?("monit_alert") ? monit_alert : monit_default_alert %>
 
 <%- if monit_enable_httpd.to_s == 'yes' then -%>
 <%# BEGIN functions %>
@@ -32,15 +22,14 @@ end
 %>
 <%# END functions %>
 
-set httpd port 2812 and use address localhost
+set httpd port <%= has_variable?("monit_httpd_port") ? monit_httpd_port : "2812" %> and use address localhost
     allow localhost
     allow monit:<%= password %>
 <%- end -%>
 
 set daemon 120
 set logfile syslog facility log_daemon
-set mailserver localhost
-set alert <%= monit_set_alert %>
+set mailserver <%= has_variable?("monit_mailserver") ? monit_mailserver : "localhost" %> 
 
 # Include settings from other files
 include /etc/monit/conf.d/*.monitrc
