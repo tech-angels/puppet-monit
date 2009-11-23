@@ -109,6 +109,6 @@ class monit {
 	# A template configuration snippet.  It would need to be included,
 	# since monit's "include" statement cannot handle an empty directory.
 	monit::snippet{ "monit_template":
-		source => "puppet:///monit/template.monitrc",
+		source => "puppet://$server/modules/monit/template.monitrc",
 	}
 }
