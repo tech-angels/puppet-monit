@@ -27,7 +27,7 @@ set httpd port <%= has_variable?("monit_httpd_port") ? monit_httpd_port : "2812"
     allow monit:<%= password %>
 <%- end -%>
 
-set daemon 120
+set daemon <%= monit_pool_interval %>
 set logfile syslog facility log_daemon
 set mailserver <%= has_variable?("monit_mailserver") ? monit_mailserver : "localhost" %> 
 

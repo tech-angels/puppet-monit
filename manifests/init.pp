@@ -14,6 +14,7 @@
 # $monit_secret="something secret, something safe"
 # $monit_alert="someone@example.org"
 # $monit_mailserver="mail.example.org"
+# $monit_pool_interval="120"
 # 
 # include monit
 #
@@ -35,6 +36,10 @@
 # monit_mailserver:           where should monit be sending mail?
 #                             set this to the mailserver
 #                             Default: localhost
+#
+# monit_pool_interval:        how often (in seconds) should monit poll?
+#                             Default: 120
+#
 
 class monit {
 
@@ -46,6 +51,11 @@ class monit {
 	# The default alert recipient.  You can override this by setting the
 	# variable "$monit_alert" in your node specification.
 	$monit_default_alert="root@localhost"
+
+        # How often should the daemon pool? Interval in seconds.
+        case $monit_pool_interval {
+          '': { $monit_pool_interval = '120' }
+        }
 
         # Should the httpd daemon be enabled, or not? By default it is not
         case $monit_enable_httpd {
@@ -100,7 +110,7 @@ class monit {
 	case $operatingsystem {
 		"debian": {
 			file { "/etc/default/monit":
-				content => "startup=1\n",
+				content => "startup=1\nCHECK_INTERVALS=${monit_pool_interval}\n",
 				before  => Service["monit"]
 			}
 		}
