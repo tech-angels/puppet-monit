@@ -29,6 +29,7 @@
 define monit::check::process($ensure=present, $process=$name,
                              $pidfile="/var/run/$name.pid",
                              $start="/etc/init.d/$name start",
+                             $start_extras="",
                              $stop="/etc/init.d/$name stop",
                              $customlines="") {
 	file {"/etc/monit/conf.d/$name.monitrc":
