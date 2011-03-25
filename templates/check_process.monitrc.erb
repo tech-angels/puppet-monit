@@ -5,7 +5,7 @@
 check process <%= name %>
   with pidfile "<%= pidfile %>"
   start program = "<%= start %>" <%= start_extras %>
-  stop program  = "<%= stop %>" <%= stop_extras %>"
+  stop program  = "<%= stop %>" <%= stop_extras %>
 <% customlines.to_a.each do |line| -%>
   <%= line %>
 <% end -%>
