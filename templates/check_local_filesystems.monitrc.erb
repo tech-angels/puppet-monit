@@ -1,0 +1,11 @@
+# Configuration snippet for <%= name %>
+# 
+# This file is handled by puppet, all local modifications will be lost
+
+<% for fs_mount in monit_mounts.split(':') do %>
+check filesystem <%= fs_mount.gsub('/', '_') %> with path <%= fs_mount %>
+  <% if space_usage -%>if space usage > <%= space_usage %> then alert<% end %>
+<% customlines.to_a.each do |line| -%>
+  <%= line %>
+<% end -%>
+<% end %>
