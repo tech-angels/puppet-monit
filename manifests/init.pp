@@ -99,6 +99,11 @@ class monit {
 	file { "/etc/monit/conf.d":
 			ensure  => directory,
 			mode    => 0700,
+                        source  => "puppet:///monit/empty/",
+                        recurse => true,
+                        purge   => true,
+                        force   => true,
+                        ignore  => '.ignore';
 	}
 
 	# The main configuration file
