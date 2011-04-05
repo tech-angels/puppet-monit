@@ -1,0 +1,9 @@
+# Configuration snippet for <%= name %>
+# 
+# This file is handled by puppet, all local modifications will be lost
+
+check filesystem <%= name %> with path <%= fspath %>
+  <% if space_usage -%>if space usage > <%= space_usage %> then alert<% end %>
+<% customlines.to_a.each do |line| -%>
+  <%= line %>
+<% end -%>
