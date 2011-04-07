@@ -2,8 +2,11 @@
 # 
 # This file is handled by puppet, all local modifications will be lost
 
-<% for fs_mount in monit_mounts.split(':') do %>
-check filesystem <%= fs_mount.gsub('/', '_') %> with path <%= fs_mount %>
+<% for fs_mount in monit_mounts.split(':') do 
+fsname = fs_mount.gsub('/', '_')[1..-1]
+if fsname == '' then fsname = 'rootfs' end
+%>
+check filesystem <%= fsname %> with path <%= fs_mount %>
   <% if space_usage -%>if space usage > <%= space_usage %> then alert<% end %>
 <% customlines.to_a.each do |line| -%>
   <%= line %>
