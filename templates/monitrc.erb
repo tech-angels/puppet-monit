@@ -5,6 +5,8 @@
 
 set alert <%= has_variable?("monit_alert") ? monit_alert : monit_default_alert %>
 
+set mail-format { from: <%= has_variable?('monit_from') ? monit_from : monit_default_from %> }
+
 <%- if monit_enable_httpd.to_s == 'yes' then -%>
 <%# BEGIN functions %>
 <%

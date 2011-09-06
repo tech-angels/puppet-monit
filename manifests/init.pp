@@ -13,6 +13,7 @@
 # $monit_httpd_port = 8888
 # $monit_secret="something secret, something safe"
 # $monit_alert="someone@example.org"
+# $monit_from="monit@example.org"
 # $monit_mailserver="mail.example.org"
 # $monit_pool_interval="120"
 # 
@@ -22,6 +23,10 @@
 #
 # monit_alert:                who should get the email notifications?
 #                             Default: root@localhost
+#
+# monit_from:                 what should be the sender email address
+#                             of email notifications?
+#                             Default: monit@fqdn
 #
 # monit_enable_httpd:         should the httpd daemon be enabled?
 #                             set this to 'yes' to enable it, be sure
@@ -51,6 +56,8 @@ class monit {
 	# The default alert recipient.  You can override this by setting the
 	# variable "$monit_alert" in your node specification.
 	$monit_default_alert="root@localhost"
+
+        $monit_default_from="monit@${fqdn}"
 
         # How often should the daemon pool? Interval in seconds.
         case $monit_pool_interval {
