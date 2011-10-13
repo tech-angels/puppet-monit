@@ -4,6 +4,7 @@
 # Parameters:
 #   namevar     - the name of this resource will be the process name
 #   pidfile     - the pidfile monit will check
+#   group	- the monit group (optional)
 #   start       - the command used by monit to start the service
 #   stop        - the command used by monit to stop the service
 #   customlines - lets you inject custom lines into the monitrc snippet, just pass an array, and it will appear in the configuration file
@@ -27,6 +28,7 @@
 # (end)
 
 define monit::check::process($ensure=present, $process=$name,
+                             $group=false,
                              $pidfile="/var/run/$name.pid",
                              $start="/etc/init.d/$name start",
                              $start_extras="",
