@@ -7,7 +7,7 @@ check process resque_worker_<%= name %>_<%= num %>
   with pidfile <%= rails_root %>/tmp/pids/resque_worker_<%= name %>_<%= num %>.pid
   start program = "/usr/bin/env HOME=/home/<%= command_uid %> RACK_ENV=<%= rails_env %> /bin/sh -l -c 'cd <%= rails_root %>; nohup bundle exec rake environment resque:work RAILS_ENV=<%= rails_env %> QUEUE=<%= queues.join(',') %> VERBOSE=1 PIDFILE=tmp/pids/resque_worker_<%= name %>_<%= num %>.pid & >> log/resque_worker_<%= name %>_<%= num %>.log 2>&1'" as uid <%= command_uid %> and gid <%= command_uid %>
   stop program = "/bin/sh -c 'cd <%= rails_root %> && kill -3 `cat tmp/pids/resque_worker_<%= name %>_<%= num %>.pid` && rm -f tmp/pids/resque_worker_<%= name %>_<%= num %>.pid; exit 0;'"
-  if totalmem is greater than 300 MB for 10 cycles then restart  # eating up memory?
+  if totalmem is greater than <%= max_memory %> MB for <%= max_memory_cycles %> cycles then restart  # eating up memory?
   <% if group then %>group <%= group %><% end %>
 
 <% end %>
