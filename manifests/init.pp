@@ -77,6 +77,7 @@ class monit {
 	service { "monit":
 		ensure  => running,
 		require => Package["monit"],
+		hasstatus => false
 	}
 	
 	# How to tell monit to reload its configuration
