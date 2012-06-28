@@ -1,0 +1,8 @@
+# Managed by Puppet
+
+check process rainbows_<%= name %>
+  with pidfile <%= real_pid_file %>
+  start program = "/usr/bin/env HOME=/home/<%= command_uid %> /bin/bash -l -c 'source /usr/local/rvm/scripts/rvm && cd <%= rails_root %> && rvm <%= rvm_ruby %> do bundle exec rainbows -E <%= rails_env %> -c <%= config_file %> -D'" as uid <%= command_uid %> and gid <%= command_uid %>
+  stop program = "/bin/sh -c 'kill `cat <%= real_pid_file %>` && rm -f <%= real_pid_file %> ; exit 0;'"
+  <% if group then %>group <%= group %><% end %>
+
