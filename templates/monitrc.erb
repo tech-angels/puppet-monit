@@ -31,7 +31,13 @@ set httpd port <%= has_variable?("monit_httpd_port") ? monit_httpd_port : "2812"
 
 set daemon <%= monit_pool_interval %>
 set logfile syslog facility log_daemon
+set idfile /var/lib/monit/id
+set statefile /var/lib/monit/state
 set mailserver <%= has_variable?("monit_mailserver") ? monit_mailserver : "localhost" %> 
+
+set eventqueue
+  basedir /var/lib/monit/events
+  slots 100
 
 # Include settings from other files
 include /etc/monit/conf.d/*.monitrc

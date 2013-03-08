@@ -122,7 +122,7 @@ class monit {
 	case $operatingsystem {
 		"debian": {
 			file { "/etc/default/monit":
-				content => "startup=1\nCHECK_INTERVALS=${monit_pool_interval}\n",
+				content => "startup=1\nCHECK_INTERVALS=${monit_pool_interval}\nSTART=yes\n",
 				before  => Service["monit"]
 			}
 		}
