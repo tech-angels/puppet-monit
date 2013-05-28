@@ -33,6 +33,7 @@ define monit::check::unicorn_rails(
   $rails_env,
   $rvm_ruby,
   $config_file='unicorn.conf',
+  $env_vars='',
   $pid_file=false) {
   $real_pid_file = $pid_file ? {
     false   => "${rails_root}/tmp/pids/unicorn.pid",
