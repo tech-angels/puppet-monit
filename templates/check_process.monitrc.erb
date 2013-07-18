@@ -7,6 +7,6 @@ check process <%= name %>
   start program = "<%= start %>" <%= start_extras %>
   stop program  = "<%= stop %>" <%= stop_extras %>
   <% if group then %>group <%= group %><% end %>
-<% customlines.to_a.each do |line| -%>
+<% customlines.lines.to_a.each do |line| -%>
   <%= line %>
 <% end -%>

@@ -10,6 +10,6 @@ check system <%= name %>
   <% if cpu_usage_user -%>if cpu usage (user) > <%= cpu_usage_user %> then alert<% end %>
   <% if cpu_usage_system -%>if cpu usage (system) > <%= cpu_usage_system %> then alert<% end %>
   <% if cpu_usage_wait -%>if cpu usage (wait) > <%= cpu_usage_wait %> then alert<% end %>
-<% customlines.to_a.each do |line| -%>
+<% customlines.lines.to_a.each do |line| -%>
   <%= line %>
 <% end -%>

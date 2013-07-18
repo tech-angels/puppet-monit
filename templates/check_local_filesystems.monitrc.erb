@@ -8,7 +8,7 @@ if fsname == '' then fsname = 'rootfs' end
 %>
 check filesystem <%= fsname %> with path <%= fs_mount %>
   <% if space_usage -%>if space usage > <%= space_usage %> then alert<% end %>
-<% customlines.to_a.each do |line| -%>
+<% customlines.lines.to_a.each do |line| -%>
   <%= line %>
 <% end -%>
 <% end %>
