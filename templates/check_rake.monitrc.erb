@@ -3,7 +3,7 @@
 
 check process rake_<%= name %>
   with pidfile <%= rails_root %>/tmp/pids/rake_<%= name %>.pid
-  start program = "/usr/bin/env HOME=/home/<%= command_uid %> RACK_ENV=<%= rails_env %> /bin/bash -l -c 'cd <%= rails_root %>; nohup bundle exec rake <%= target %> RAILS_ENV=<%= rails_env %> VERBOSE=1 & >> log/rake_<%= name %>.log 2>&1 && echo $! > tmp/pids/rake_<%= name %>.pid'" as uid <%= command_uid %> and gid <%= command_uid %>
+  start program = "/bin/su - <%= command_uid %> -c 'cd <%= rails_root %>; nohup bundle exec rake <%= target %> RAILS_ENV=<%= rails_env %> VERBOSE=1 & >> log/rake_<%= name %>.log 2>&1 && echo $! > tmp/pids/rake_<%= name %>.pid'"
   stop program = "/bin/sh -c 'cd <%= rails_root %> && kill `cat tmp/pids/rake_<%= name %>.pid` && rm -f tmp/pids/rake_<%= name %>.pid; exit 0;'"
   if totalmem is greater than 300 MB for 10 cycles then restart  # eating up memory?
   <% if group then %>group <%= group %><% end %>

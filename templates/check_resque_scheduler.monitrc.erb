@@ -2,7 +2,7 @@
 
 check process resque_scheduler_<%= name %>
   with pidfile <%= rails_root %>/tmp/pids/resque_scheduler_<%= name %>.pid
-  start program = "/usr/bin/env HOME=/home/<%= command_uid %> RACK_ENV=<%= rails_env %> /bin/bash -l -c 'cd <%= rails_root %>; nohup bundle exec rake environment resque:scheduler RAILS_ENV=<%= rails_env %> VERBOSE=1 & >> log/resque_scheduler_<%= name %>.log 2>&1 && echo $! > tmp/pids/resque_scheduler_<%= name %>.pid '" as uid <%= command_uid %> and gid <%= command_uid %>
+  start program = "/bin/su - <%= command_uid %> -c 'cd <%= rails_root %>; nohup bundle exec rake environment resque:scheduler RAILS_ENV=<%= rails_env %> VERBOSE=1 & >> log/resque_scheduler_<%= name %>.log 2>&1 && echo $! > tmp/pids/resque_scheduler_<%= name %>.pid '"
   stop program = "/bin/sh -c 'cd <%= rails_root %> && kill -3 `cat tmp/pids/resque_scheduler_<%= name %>.pid` && rm -f tmp/pids/resque_scheduler_<%= name %>.pid; exit 0;'"
   if totalmem is greater than 300 MB for 10 cycles then restart  # eating up memory?
   <% if group then %>group <%= group %><% end %>
