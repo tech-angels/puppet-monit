@@ -13,27 +13,27 @@ set mail-format { from: <%= has_variable?('monit_from') ? monit_from : monit_def
 require 'digest/sha1'
 
 def password
-  if defined?(monit_secret)
-    s = monit_secret
+  if defined?(@monit_secret)
+    s = @monit_secret
   else
-    s = monit_default_secret
+    s = @monit_default_secret
   end
 
-  return Digest::SHA1.hexdigest(s + Digest::SHA1.hexdigest(s + fqdn))
+  return Digest::SHA1.hexdigest(s + Digest::SHA1.hexdigest(s + @fqdn))
 end
 %>
 <%# END functions %>
 
-set httpd port <%= has_variable?("monit_httpd_port") ? monit_httpd_port : "2812" %> and use address localhost
+set httpd port <%= has_variable?("monit_httpd_port") ? @monit_httpd_port : "2812" %> and use address localhost
     allow localhost
     allow monit:<%= password %>
 <%- end -%>
 
-set daemon <%= monit_pool_interval %>
+set daemon <%= @monit_pool_interval %>
 set logfile syslog facility log_daemon
 set idfile /var/lib/monit/id
 set statefile /var/lib/monit/state
-set mailserver <%= has_variable?("monit_mailserver") ? monit_mailserver : "localhost" %> 
+set mailserver <%= has_variable?("monit_mailserver") ? @monit_mailserver : "localhost" %> 
 
 set eventqueue
   basedir /var/lib/monit/events
