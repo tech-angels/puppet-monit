@@ -3,11 +3,11 @@
 # This file is handled by puppet, any local changes will be lost
 #
 
-set alert <%= has_variable?("monit_alert") ? monit_alert : monit_default_alert %>
+set alert <%= has_variable?("monit_alert") ? @monit_alert : @monit_default_alert %>
 
-set mail-format { from: <%= has_variable?('monit_from') ? monit_from : monit_default_from %> }
+set mail-format { from: <%= has_variable?('monit_from') ? @monit_from : @monit_default_from %> }
 
-<%- if monit_enable_httpd.to_s == 'yes' then -%>
+<%- if @monit_enable_httpd.to_s == 'yes' then -%>
 <%# BEGIN functions %>
 <%
 require 'digest/sha1'
