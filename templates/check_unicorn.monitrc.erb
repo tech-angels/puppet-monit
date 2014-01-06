@@ -1,8 +1,8 @@
 # Managed by Puppet
 
-check process unicorn_<%= name %>
-  with pidfile <%= real_pid_file %>
-  start program = "/bin/su - <%= command_uid %> -c 'cd <%= rails_root %> && (test -f Gemfile && bundle exec unicorn <% if rails_env then %>-E <%= rails_env %><% end %> -c <%= config_file %> -D) ||  (rvm system do unicorn <% if rails_env then %>-E <%= rails_env %><% end %> -c <%= config_file %> -D) || unicorn <% if rails_env then %>-E <%= rails_env %><% end %> -c <%= config_file %> -D'"
-  stop program = "/bin/sh -c 'kill `cat <%= real_pid_file %>` && rm -f <%= real_pid_file %> ; exit 0;'"
-  <% if group then %>group <%= group %><% end %>
+check process unicorn_<%= @name %>
+  with pidfile <%= @real_pid_file %>
+  start program = "/bin/su - <%= @command_uid %> -c 'cd <%= @rails_root %> && (test -f Gemfile && bundle exec unicorn <% if @rails_env then %>-E <%= @rails_env %><% end %> -c <%= @config_file %> -D) ||  (rvm system do unicorn <% if @rails_env then %>-E <%= @rails_env %><% end %> -c <%= @config_file %> -D) || unicorn <% if @rails_env then %>-E <%= @rails_env %><% end %> -c <%= @config_file %> -D'"
+  stop program = "/bin/sh -c 'kill `cat <%= @real_pid_file %>` && rm -f <%= @real_pid_file %> ; exit 0;'"
+  <% if @group then %>group <%= @group %><% end %>
 

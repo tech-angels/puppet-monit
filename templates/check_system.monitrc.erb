@@ -1,15 +1,15 @@
-# Configuration snippet for <%= name %>
+# Configuration snippet for <%= @name %>
 # 
 # This file is handled by puppet, all local modifications will be lost
 
-check system <%= name %>
-  <% if loadavg_1 -%>if loadavg (1min) > <%= loadavg_1 %> then alert<% end %>
-  <% if loadavg_5 -%>if loadavg (5min) > <%= loadavg_5 %> then alert<% end %>
-  <% if memory_usage -%>if memory usage > <%= memory_usage %> then alert<% end %>
-  <% if swap_usage -%>if swap usage > <%= swap_usage %> then alert<% end %>
-  <% if cpu_usage_user -%>if cpu usage (user) > <%= cpu_usage_user %> then alert<% end %>
-  <% if cpu_usage_system -%>if cpu usage (system) > <%= cpu_usage_system %> then alert<% end %>
-  <% if cpu_usage_wait -%>if cpu usage (wait) > <%= cpu_usage_wait %> then alert<% end %>
-<% customlines.lines.to_a.each do |line| -%>
+check system <%= @name %>
+  <% if @loadavg_1 -%>if loadavg (1min) > <%= @loadavg_1 %> then alert<% end %>
+  <% if @loadavg_5 -%>if loadavg (5min) > <%= @loadavg_5 %> then alert<% end %>
+  <% if @memory_usage -%>if memory usage > <%= @memory_usage %> then alert<% end %>
+  <% if @swap_usage -%>if swap usage > <%= @swap_usage %> then alert<% end %>
+  <% if @cpu_usage_user -%>if cpu usage (user) > <%= @cpu_usage_user %> then alert<% end %>
+  <% if @cpu_usage_system -%>if cpu usage (system) > <%= @cpu_usage_system %> then alert<% end %>
+  <% if @cpu_usage_wait -%>if cpu usage (wait) > <%= @cpu_usage_wait %> then alert<% end %>
+<% @customlines.lines.to_a.each do |line| -%>
   <%= line %>
 <% end -%>

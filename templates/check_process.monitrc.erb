@@ -1,12 +1,12 @@
-# Configuration snippet for <%= name %>
+# Configuration snippet for <%= @name %>
 # 
 # This file is handled by puppet, all local modifications will be lost
 
-check process <%= name %>
-  with pidfile "<%= pidfile %>"
-  start program = "<%= start %>" <%= start_extras %>
-  stop program  = "<%= stop %>" <%= stop_extras %>
-  <% if group then %>group <%= group %><% end %>
-<% customlines.lines.to_a.each do |line| -%>
+check process <%= @name %>
+  with pidfile "<%= @pidfile %>"
+  start program = "<%= @start %>" <%= @start_extras %>
+  stop program  = "<%= @stop %>" <%= @stop_extras %>
+  <% if @group then %>group <%= @group %><% end %>
+<% @customlines.lines.to_a.each do |line| -%>
   <%= line %>
 <% end -%>
