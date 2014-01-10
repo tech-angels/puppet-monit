@@ -19,9 +19,13 @@
 #   }
 # (end)
 
-define monit::check::local_filesystems($ensure=present,
-                             $space_usage='90%',
-                             $customlines="") {
+class monit::check::local_filesystems(
+  $filesystem_select_regex='.*',
+  $filesystem_reject_regex='(?=a)b', # Don't reject anything by default
+  $ensure=present,
+  $space_usage='90%',
+  $customlines=""
+) {
 	file {"/etc/monit/conf.d/$name.monitrc":
 		ensure  => $ensure,
 		owner   => "root",

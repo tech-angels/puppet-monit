@@ -2,7 +2,7 @@
 # 
 # This file is handled by puppet, all local modifications will be lost
 
-<% for fs_mount in @monit_mounts.split(':') do 
+<% for fs_mount in @monit_mounts.split(':').select{ |f| f =~ ::Regexp.new(@filesystem_select_regex) }.reject{ |f| f =~ ::Regexp.new(@filesystem_reject_regex)} do 
 fsname = fs_mount.gsub('/', '_')[1..-1]
 if fsname == '' then fsname = 'rootfs' end
 %>
