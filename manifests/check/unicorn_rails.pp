@@ -7,7 +7,6 @@
 #   command_uid - the UID and GID to run Unicorn as
 #   rails_root	- the Rails project root.
 #   rails_env	- the Rails environment
-#   rvm_ruby    - the ruby version to use
 #   config_file - the Unicorn config file. Default: unicorn.conf
 #   pid_file    - the Unicorn pid file. Default: ${rails_root}/tmp/pids/unicorn.pid
 #
@@ -19,7 +18,6 @@
 #   monit::check::unicorn_rails{"preprod":
 #     group		=> 'unicorn preprod',
 #     command_uid	=> 'deploy',
-#     rvm_ruby          => 'ruby-1.9.3-p0',
 #     rails_root	=> '/var/www/project/current',
 #     rails_env		=> 'preproduction',
 #   }
@@ -31,7 +29,6 @@ define monit::check::unicorn_rails(
   $command_uid,
   $rails_root,
   $rails_env,
-  $rvm_ruby,
   $config_file='unicorn.conf',
   $env_vars='',
   $pid_file=false) {

@@ -2,7 +2,7 @@
 
 check process unicorn_<%= @name %>
   with pidfile <%= @real_pid_file %>
-  start program = "/bin/su - <%= @command_uid %> -c 'cd <%= @rails_root %> && <%= @env_vars %> rvm <%= @rvm_ruby %> do bundle exec unicorn_rails -E <%= @rails_env %> -c <%= @config_file %> -D'"
+  start program = "/bin/su - <%= @command_uid %> -c 'cd <%= @rails_root %> && <%= @env_vars %> bundle exec unicorn_rails -E <%= @rails_env %> -c <%= @config_file %> -D'"
   stop program = "/bin/sh -c 'kill `cat <%= @real_pid_file %>` && rm -f <%= @real_pid_file %> ; exit 0;'"
   <% if @group then %>group <%= @group %><% end %>
 
