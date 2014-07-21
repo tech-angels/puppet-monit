@@ -4,8 +4,8 @@
 
 check system <%= @name %>
   <% if @loadavg_1 -%>if loadavg (1min) > <%= @loadavg_1 %> then alert<% end %>
-  <% if @loadavg_5 -%>if loadavg (5min) > <%= @loadavg_5 %> then alert<% end %>
-  <% if @memory_usage -%>if memory usage > <%= @memory_usage %> then alert<% end %>
+  <% if @loadavg_5 -%>if loadavg (5min) > <%= @loadavg_5 %> for 10 times within 20 cycles then alert<% end %>
+  <% if @memory_usage -%>if memory usage > <%= @memory_usage %> for 10 times within 20 cycles then alert<% end %>
   <% if @swap_usage -%>if swap usage > <%= @swap_usage %> then alert<% end %>
   <% if @cpu_usage_user -%>if cpu usage (user) > <%= @cpu_usage_user %> for 10 times within 20 cycles then alert<% end %>
   <% if @cpu_usage_system -%>if cpu usage (system) > <%= @cpu_usage_system %> for 10 times within 20 cycles then alert<% end %>
