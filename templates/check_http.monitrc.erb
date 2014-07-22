@@ -1,0 +1,8 @@
+# Configuration snippet for <%= @name %>
+# 
+# This file is handled by puppet, all local modifications will be lost
+
+check host <%= name %>-http with address localhost
+  if failed port <%= @port %> protocol http
+    <% if @request then %>with request "<%= @request %>"<% end %>
+  then alert

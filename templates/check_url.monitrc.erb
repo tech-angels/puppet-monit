@@ -1,0 +1,8 @@
+# Configuration snippet for <%= @name %>
+# 
+# This file is handled by puppet, all local modifications will be lost
+
+check host <%= name %>-url with address localhost
+  if failed url <%= @url %> 
+    <% if @content then %>and content == "<%= @content %>"<% end %>
+  then alert
